@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaDeCelulares.Models
 {
-    public class Clientes
-    {
+    public class Clientes   {
         [Key]
         public int IdCliente { get; set; }
         public string NombreCliente { get; set; }

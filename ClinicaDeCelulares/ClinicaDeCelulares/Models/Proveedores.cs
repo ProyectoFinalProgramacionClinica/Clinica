@@ -10,8 +10,8 @@ namespace ClinicaDeCelulares.Models
     {
         [Key]
         public int idProveedor { get; set; }
-        public int compania { get; set; }
-        public int nombreRepresentante { get; set; }
+        public string compania { get; set; }
+        public string nombreRepresentante { get; set; }
         public string telefonoProveedor { get; set; }
     }
 }

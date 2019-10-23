@@ -7,21 +7,51 @@ using Microsoft.AspNetCore.Mvc;
 using ClinicaDeCelulares.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using ClinicaDeCelulares.Library;
+using Newtonsoft.Json;
+using ClinicaDeCelulares.Areas.Principal.Controllers;
 
 namespace ClinicaDeCelulares.Controllers
 {
     public class HomeController : Controller
     {
+        private LUsuarios _usuarios;
         IServiceProvider _serviceProvider;
-        public HomeController(IServiceProvider serviceProvider)
+        public HomeController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
-            _serviceProvider = serviceProvider;
+           
+             _usuarios = new LUsuarios(userManager, signInManager, roleManager, context);
         }
-       // public async Task<IActionResult> Index()
-            public IActionResult Index()
+        // public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             //await CreateRoles(_serviceProvider);
             return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Index(Login model)
+        {
+            if (ModelState.IsValid)
+            {
+                List<object[]> listObject = await _usuarios.userLogin(model.Input.Email, model.Input.Password);
+                object[] objects = listObject[0];
+                var _identityError = (IdentityError)objects[0];
+                model.ErrorMessage = _identityError.Description;
+                if (model.ErrorMessage.Equals("True"))
+                {
+                    var data = JsonConvert.SerializeObject(objects[1]);
+                    //HttpContext.Session.SetString("User",data);
+                    return RedirectToAction(nameof(PrincipalController.Index), "Principal");
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+
+            return View(model);
         }
         public IActionResult About()
         {

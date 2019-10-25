@@ -17,10 +17,9 @@ namespace ClinicaDeCelulares.Controllers
         {
             _serviceProvider = serviceProvider;
         }
-       // public async Task<IActionResult> Index()
-            public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //await CreateRoles(_serviceProvider);
+            await CreateRoles(_serviceProvider);
             return View();
         }
         public IActionResult About()
@@ -55,7 +54,7 @@ namespace ClinicaDeCelulares.Controllers
                     await roleManager.CreateAsync(new IdentityRole(item));
                 }
             }
-            var user = await userManager.FindByIdAsync("0079c93b-46e7-4fd5-a3b0-d47ea2562d8a");
+            var user = await userManager.FindByIdAsync("6b400e72-cefd-4335-9fdd-31684e4a7791");
             await userManager.AddToRoleAsync(user, "Admin");
         }
     }

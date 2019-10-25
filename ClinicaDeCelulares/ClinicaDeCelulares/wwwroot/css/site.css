@@ -1,55 +1,37 @@
-﻿.btn-floating {
-    background: url(../images/iconos/ic_reorder_whites.png) no-repeat;
-}
-.side-nav {
-    top: 0;
-    margin: 0;
-    height: calc(100% + 60px);
-    background-color: #fff;
-    overflow-y: auto;
-    will-change: transform;
-}
-.row {
-    margin-bottom: 0px;
-}
-.collection {
-    border: 0px solid #e0e0e0;
-}
-.collection .collection-item.avatar:not(.circle-clipper) > .circle, .collection .collection-item.avatar :not(.circle-clipper) > .circle {
-        width: 72px;
-        height: 42px;
-        padding: 0px;
-}
-.circle {
-    border-radius: 0%;
-}
-@media(max-width: 1024px) {
-    .side-nav {
-        display: none;
-    }
-    .collection .collection-item.avatar {
-        padding-left: 70px;
-    }
-    .row .col.s5 {
-        width: 46.3%;
-    }
-}
-@media(min-width: 800px){
-    .container {
-        max-width: 60%;
-    }
-    .side-nav {
-        max-width: 20%;
-        display: block;
-    }
-    .container2 {
-        width: 95%;
-        margin: -260px 30px 0px;
-    }
-    .collection .collection-item.avatar {
-        min-height: 50px;
-        padding-left: 40px;
-        max-width: 90%;
-    }
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}

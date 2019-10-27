@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClinicaDeCelulares.Data;
 using ClinicaDeCelulares.Models;
+using System.Text;
 
 namespace ClinicaDeCelulares.Controllers
 {
@@ -127,6 +128,45 @@ namespace ClinicaDeCelulares.Controllers
             return View(productos);
         }
 
+        public ActionResult EditField(int id, string field, string value)
+        {
+            bool status = false; string mensaje = "Valor no establecido";
+            Productos productos = (from a in _context.Productos
+                                     where a.IdProducto == id
+                                     select a).FirstOrDefault();
+            switch (field)
+            {
+                case "Nombre":
+                    productos.nombreProducto = value.Trim();
+                    break;
+                case "Precio":
+                    productos.precioUnidad = Int32.Parse(value);
+                    break;
+                case "Existencia":
+                    productos.unidadesEnExistencia = Int32.Parse(value);
+                    break;
+                case "Compañia":
+                    productos.idProveedor = Int32.Parse(value);
+                    break;
+                case "Categoria":
+                    productos.idProveedor = Int32.Parse(value);
+                    break;
+
+            }
+            _context.SaveChanges();
+            status = true;
+            mensaje = "Valor establecido";
+            return Json(new { value = value, status = status, mensaje = mensaje });
+        }
+
+        public string Ids_ProveedoresJSON()
+        {
+            StringBuilder sb = new StringBuilder();
+            var datos = _context.Proveedores.ToList();
+            foreach (var item in datos)
+                sb.Append(string.Format("'{0}':'{1}',", item.idProveedor, item.compania));
+            return "{" + sb.ToString() + "}";
+        }
         // GET: Productos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

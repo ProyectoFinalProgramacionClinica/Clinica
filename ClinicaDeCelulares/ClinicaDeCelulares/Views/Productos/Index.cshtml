@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista de Productos</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -34,21 +34,21 @@
         @foreach (var item in Model)
         {
         <tr>
-            <td class="edit" id="@item.idProveedor" data-propertyName="Nombre">
+            <td class="edit" id="@item.IdProducto" data-propertyName="Nombre">
 
                 @Html.DisplayFor(modelItem => item.nombreProducto)
             </td>
-            <td class="edit" id="@item.idProveedor" data-propertyName="Precio">
+            <td class="edit" id="@item.IdProducto" data-propertyName="Precio">
                 @Html.DisplayFor(modelItem => item.precioUnidad)
             </td>
-            <td class="edit" id="@item.idProveedor" data-propertyName="Existencia">
+            <td class="edit" id="@item.IdProducto" data-propertyName="Existencia">
                 @Html.DisplayFor(modelItem => item.unidadesEnExistencia)
             </td>
-            <td class="edit" id="@item.idProveedor" data-propertyName="Compañia">
-                @Html.DisplayFor(modelItem => item.Proveedores.compania)
+            <td class="edit-prov" id="@item.IdProducto" data-propertyName="Compañia">
+                @Html.DisplayFor(modelItem => item.Proveedores.idProveedor)
             </td>
-            <td class="edit" id="@item.idProveedor" data-propertyName="Categoria">
-                @Html.DisplayFor(modelItem => item.Categorias.NombreCategoria)
+            <td class="edit" id="@item.IdProducto" data-propertyName="Categoria">
+                @Html.DisplayFor(modelItem => item.Categorias.IdCategoria)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdProducto">Edit</a> |
@@ -63,6 +63,43 @@
     <script>
             $(document).ready(function () {
                 $('#table').DataTable();
+                 $(".edit").editable("/Productos/EditField", {
+                submitdata: function () {
+                    return {
+                        id: $(this).data("id"),
+                        field: $(this).data("propertyname"),
+                        value: $(this).value
+                         }
+
+                }, //Función para poder recibir el nuevo valor y mostrarlo 
+                callback: function (value, settings) {
+                    var jsonData = $.parseJSON(value);
+                    if (jsonData.status) {
+                        $(this).text(jsonData.value);
+                    } else { $(this).text(jsonData.mensaje); }
+                }
+            }); $(".edit-prov").editable("/Productos/EditField", {
+                loadurl: "/Productos/Ids_ProveedoresJSON",
+                type: "select",
+                submit: "Ok",
+                cssclass: "form-control",
+                submitcssclass: 'btn btn-success',
+                submitdata: function () {
+                    return {
+                        id: $(this).data("id"),
+                        field: $(this).data("propertyname"),
+                        value: $(this).value
+                    }
+                }, //Función para poder recibir el nuevo valor y mostrarlo
+                callback: function (value, settings) {
+                    var jsonData = $.parseJSON(value);
+                    if (jsonData.status) {
+                        $(this).text(jsonData.value);
+                    } else {
+                        $(this).text(jsonData.mensaje);
+                    }
+                }
+            });
             });
     </script>
 }

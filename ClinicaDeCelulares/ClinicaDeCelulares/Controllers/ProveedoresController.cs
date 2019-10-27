@@ -80,6 +80,37 @@ namespace ClinicaDeCelulares.Controllers
             }
             return View(proveedores);
         }
+        private bool CLientesExists(int id)
+        {
+            return _context.Clientes.Any(e => e.IdCliente == id);
+        }
+
+        [HttpPost]
+        public ActionResult EditField(int id, string field, string value)
+        {
+            bool status = false; string mensaje = "Valor no establecido";
+            Proveedores proveedor = (from a in _context.Proveedores
+                                where a.idProveedor == id
+                                select a).FirstOrDefault();
+            switch (field)
+            {
+                case "Compañia":
+                    proveedor.compania = value.Trim();
+                    break;
+                case "":
+                case "Representante":
+                    proveedor.nombreRepresentante = value.Trim();
+                    break;
+                case "Telefono":
+                    proveedor.telefonoProveedor = value.Trim();
+                    break;
+                
+            }
+            _context.SaveChanges();
+            status = true;
+            mensaje = "Valor establecido";
+            return Json(new { value = value, status = status, mensaje = mensaje });
+        }
 
         // POST: Proveedores/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

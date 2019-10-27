@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista de Proveedores</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -16,10 +16,10 @@
                 @Html.DisplayNameFor(model => model.compania)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nombreRepresentante)
+                @Html.DisplayName("Representante")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.telefonoProveedor)
+                @Html.DisplayName("Telefono")
             </th>
             <th></th>
         </tr>
@@ -27,22 +27,22 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                 <td class="edit" id="@item.idProveedor" data-propertyName="compañia">
-                    @Html.DisplayFor(modelItem => item.compania)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nombreRepresentante)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.telefonoProveedor)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.idProveedor">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.idProveedor">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.idProveedor">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td class="edit" id="@item.idProveedor" data-propertyName="Compañia">
+                @Html.DisplayFor(modelItem => item.compania)
+            </td>
+            <td class="edit" id="@item.idProveedor" data-propertyName="Representante">
+                @Html.DisplayFor(modelItem => item.nombreRepresentante)
+            </td>
+            <td class="edit" id="@item.idProveedor" data-propertyName="Telefono">
+                @Html.DisplayFor(modelItem => item.telefonoProveedor)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.idProveedor">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.idProveedor">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.idProveedor">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -50,6 +50,21 @@
     <script>
             $(document).ready(function () {
                 $('#table').DataTable();
+                 $(".edit").editable("/Proveedores/EditField", {
+                submitdata: function () {
+                    return {
+                        id: $(this).data("idProveedor"),
+                        field: $(this).data("propertyname"),
+                        value: $(this).value
+                    }
+                }, //Función para poder recibir el nuevo valor y mostrarlo 
+                callback: function (value, settings) {
+                    var jsonData = $.parseJSON(value);
+                    if (jsonData.status) {
+                        $(this).text(jsonData.value);
+                    } else { $(this).text(jsonData.mensaje); }
+                }
+            });
             });
     </script>
 }

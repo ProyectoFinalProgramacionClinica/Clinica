@@ -81,6 +81,29 @@ namespace ClinicaDeCelulares.Controllers
             return View(categorias);
         }
 
+        public ActionResult EditField(int id, string field, string value)
+        {
+            bool status = false; string mensaje = "Valor no establecido";
+            Categorias categorias = (from a in _context.Categorias
+                                     where a.IdCategoria == id
+                                     select a).FirstOrDefault();
+            switch (field)
+            {
+                case "Nombre de Categoria":
+                    categorias.NombreCategoria = value.Trim();
+                    break;
+                case "Descripcion":
+                   categorias.Descripcion = value.Trim();
+                    break;
+               
+
+            }
+            _context.SaveChanges();
+            status = true;
+            mensaje = "Valor establecido";
+            return Json(new { value = value, status = status, mensaje = mensaje });
+        }
+
         // POST: Categorias/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

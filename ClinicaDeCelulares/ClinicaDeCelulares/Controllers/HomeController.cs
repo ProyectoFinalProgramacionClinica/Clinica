@@ -54,7 +54,7 @@ namespace ClinicaDeCelulares.Controllers
                     await roleManager.CreateAsync(new IdentityRole(item));
                 }
             }
-            var user = await userManager.FindByIdAsync("6b400e72-cefd-4335-9fdd-31684e4a7791");
+            var user = await userManager.FindByIdAsync("0079c93b-46e7-4fd5-a3b0-d47ea2562d8a");
             await userManager.AddToRoleAsync(user, "Admin");
         }
     }

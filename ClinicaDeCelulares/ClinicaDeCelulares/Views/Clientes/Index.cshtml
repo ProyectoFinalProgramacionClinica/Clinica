@@ -1,53 +1,78 @@
 ﻿@model IEnumerable<ClinicaDeCelulares.Models.Clientes>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Clientes";
 }
 
-<h2>Index</h2>
+<h2>Clientes</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Direccion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TelefonoCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fax)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TelefonoCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fax)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCliente">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCliente">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCliente">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<table id="table" class="display" style="width:100%">
+    
+    @*<table class="table">*@
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Nombre")
+                </th>
+                <th>
+                    @Html.DisplayName("Direccion")
+                </th>
+                <th>
+                    @Html.DisplayName("Telefono")
+                </th>
+                <th>
+                    @Html.DisplayName("Fax")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td class="edit" id="@item.IdCliente" data-propertyName="Nombre">
+                    @Html.DisplayFor(modelItem => item.NombreCliente)
+                </td>
+                <td class="edit" id="@item.IdCliente" data-propertyName="Direccion">
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td class="edit" id="@item.IdCliente" data-propertyName="Telefono">
+                    @Html.DisplayFor(modelItem => item.TelefonoCliente)
+                </td>
+                <td class="edit" id="@item.IdCliente" data-propertyName="Fax">
+                    @Html.DisplayFor(modelItem => item.Fax)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCliente">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdCliente">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCliente">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $('#table').DataTable();
+                $(".edit").editable("/Clientes/EditField", {
+                submitdata: function () {
+                    return {
+                        id: $(this).data("id"),
+                        field: $(this).data("propertyname"),
+                        value: $(this).value
+                    }
+                }, //Función para poder recibir el nuevo valor y mostrarlo 
+                callback: function (value, settings) {
+                    var jsonData = $.parseJSON(value);
+                    if (jsonData.status) {
+                        $(this).text(jsonData.value);
+                    } else { $(this).text(jsonData.mensaje); }
+                }
+            });
+            });
+        </script>
+    }

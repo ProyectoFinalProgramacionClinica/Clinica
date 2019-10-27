@@ -9,44 +9,46 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table id="table" class="display" style="width:100%">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.nombreProducto)
+                @Html.DisplayName("Nombre")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.precioUnidad)
+                @Html.DisplayName("Precio/Unidad")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.unidadesEnExistencia)
+                @Html.DisplayName("Existencia")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Proveedores)
+                @Html.DisplayName("Proveedor")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Categorias)
+                @Html.DisplayName("Categoria")
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
-            <td>
+            <td class="edit" id="@item.idProveedor" data-propertyName="Nombre">
+
                 @Html.DisplayFor(modelItem => item.nombreProducto)
             </td>
-            <td>
+            <td class="edit" id="@item.idProveedor" data-propertyName="Precio">
                 @Html.DisplayFor(modelItem => item.precioUnidad)
             </td>
-            <td>
+            <td class="edit" id="@item.idProveedor" data-propertyName="Existencia">
                 @Html.DisplayFor(modelItem => item.unidadesEnExistencia)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Proveedores.idProveedor)
+            <td class="edit" id="@item.idProveedor" data-propertyName="Compañia">
+                @Html.DisplayFor(modelItem => item.Proveedores.compania)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categorias.IdCategoria)
+            <td class="edit" id="@item.idProveedor" data-propertyName="Categoria">
+                @Html.DisplayFor(modelItem => item.Categorias.NombreCategoria)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdProducto">Edit</a> |
@@ -54,6 +56,13 @@
                 <a asp-action="Delete" asp-route-id="@item.IdProducto">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
+@section scripts{
+    <script>
+            $(document).ready(function () {
+                $('#table').DataTable();
+            });
+    </script>
+}

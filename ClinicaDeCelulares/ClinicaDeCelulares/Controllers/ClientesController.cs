@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClinicaDeCelulares.Data;
 using ClinicaDeCelulares.Models;
+using System.Text;
 
 namespace ClinicaDeCelulares.Controllers
 {
@@ -116,6 +117,40 @@ namespace ClinicaDeCelulares.Controllers
             return View(clientes);
         }
 
+        private bool CLientesExists(int id)
+        {
+            return _context.Clientes.Any(e => e.IdCliente == id);
+        }
+        [HttpPost]
+        public ActionResult EditField(int id, string field, string value)
+        {
+            bool status = false; string mensaje = "Valor no establecido";
+            Clientes cliente = (from a in _context.Clientes
+                                 where a.IdCliente == id
+                                 select a).FirstOrDefault();
+            switch (field)
+            {
+                case "Nombre":
+                    cliente.NombreCliente = value.Trim();
+                    break;
+                case "":
+                case "Direccion":
+                   cliente.Direccion = value.Trim();
+                    break;
+                case "Telefono":
+                    cliente.TelefonoCliente = value.Trim();
+                    break;
+                case "Fax":
+                    cliente.Fax = value.Trim();
+                    break;
+            }
+            _context.SaveChanges();
+            status = true;
+            mensaje = "Valor establecido";
+            return Json(new { value = value, status = status, mensaje = mensaje });
+        }
+
+       
         // GET: Clientes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

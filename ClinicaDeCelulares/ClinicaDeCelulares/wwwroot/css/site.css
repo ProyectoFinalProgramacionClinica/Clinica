@@ -4,7 +4,7 @@ for details on configuring this project to bundle and minify static web assets. 
 .collection .collection-item.avatar {
     min-height: 50px;
     padding-left: 40px;
-    max-width: 80%;
+    max-width: 90%;
 }
 
 /* Hide/rearrange for smaller screens */

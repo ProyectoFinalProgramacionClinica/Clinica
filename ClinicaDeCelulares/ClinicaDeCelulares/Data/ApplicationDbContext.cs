@@ -4,7 +4,6 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ClinicaDeCelulares.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ClinicaDeCelulares.Data
 {
@@ -18,6 +17,5 @@ namespace ClinicaDeCelulares.Data
         public DbSet<ClinicaDeCelulares.Models.Categorias> Categorias { get; set; }
         public DbSet<ClinicaDeCelulares.Models.Productos> Productos { get; set; }
         public DbSet<ClinicaDeCelulares.Models.Proveedores> Proveedores { get; set; }
-
     }
 }

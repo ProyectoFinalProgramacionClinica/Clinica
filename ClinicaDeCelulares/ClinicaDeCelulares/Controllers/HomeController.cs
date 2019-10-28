@@ -2,25 +2,66 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ClinicaDeCelulares.Models;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using ClinicaDeCelulares.Data;
+using ClinicaDeCelulares.Library;
+using ClinicaDeCelulares.Models;
+using ClinicaDeCelulares.Areas.Principal.Controllers;
 
-namespace ClinicaDeCelulares.Controllers
+namespace Sistem_Ventas.Controllers
 {
     public class HomeController : Controller
     {
-        IServiceProvider _serviceProvider;
-        public HomeController(IServiceProvider serviceProvider)
+        private Usuarios _usuarios;
+        //private SignInManager<IdentityUser> _signInManager;
+        public HomeController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager)
         {
-            _serviceProvider = serviceProvider;
+            //_signInManager = signInManager;
+            _usuarios = new Usuarios(userManager, signInManager, roleManager);
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            await CreateRoles(_serviceProvider);
-            return View();
+            //if (_signInManager.IsSignedIn(User))
+            //{
+            //    return RedirectToAction(nameof(PrincipalController.Index), "Principal");
+            //}
+            //else
+            //{
+                return View();
+            //}
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Index(Login model)
+        {
+            if (ModelState.IsValid)
+            {
+                List<object[]> listObject = await _usuarios.userLogin(model.Input.Email, model.Input.Password);
+                object[] objects = listObject[0];
+                var _identityError = (IdentityError)objects[0];
+                model.ErrorMessage = _identityError.Description;
+                if (model.ErrorMessage.Equals("True"))
+                {
+                    var data = JsonConvert.SerializeObject(objects[1]);
+                    //HttpContext.Session.SetString("User",data);
+                    return RedirectToAction(nameof(PrincipalController.Index), "Principal");
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+
+            return View(model);
         }
         public IActionResult About()
         {
@@ -36,10 +77,10 @@ namespace ClinicaDeCelulares.Controllers
         {
             return View();
         }
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View()/*(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier })*/;
         }
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {

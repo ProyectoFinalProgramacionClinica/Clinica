@@ -1,0 +1,60 @@
+﻿@model ClinicaDeCelulares.Models.Factura
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Factura</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdVenta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdVenta)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecioUnitario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PrecioUnitario)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Productos)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Productos.IdProducto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vendedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Vendedor.IdVendedor)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdFactura">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

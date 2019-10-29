@@ -8,7 +8,7 @@ namespace ClinicaDeCelulares.Models
 {
     public class Factura
     {
-       
+        [Key]
         public int IdFactura{ get; set; }
         public int IdVenta { get; set; }
         public int IdVendedor { get; set; }

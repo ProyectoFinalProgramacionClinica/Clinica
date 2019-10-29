@@ -9,6 +9,10 @@ namespace ClinicaDeCelulares.Models
 {
     public class Productos
     {
+        public Productos()
+        {
+            Factura = new List<Factura>();
+        }
         [Key]
         public int IdProducto { get; set; }
         public string nombreProducto { get; set; }
@@ -21,5 +25,6 @@ namespace ClinicaDeCelulares.Models
         public virtual Proveedores Proveedores { get; set; }
         [ForeignKey("idCategoria")]
         public virtual Categorias Categorias { get; set; }
+        public virtual List<Factura> Factura { get; set; }
     }
 }

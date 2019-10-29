@@ -11,6 +11,7 @@ namespace ClinicaDeCelulares.Models
        
         public int IdFactura{ get; set; }
         public int IdVenta { get; set; }
+        public int IdVendedor { get; set; }
         public int IdProducto { get; set; }
         [DataType(DataType.Date)]
         public string Fecha { get; set; }
@@ -21,6 +22,7 @@ namespace ClinicaDeCelulares.Models
        
         public virtual Ventas Ventas { get; set; }
         public virtual Productos Productos { get; set; }
+        public virtual Vendedor Vendedor  { get; set; }
     }
     #region ViewModels
     public partial class FacturaViewModel

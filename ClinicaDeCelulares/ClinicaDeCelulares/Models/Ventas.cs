@@ -25,11 +25,11 @@ namespace ClinicaDeCelulares.Models
         public virtual Vendedor Vendedor { get; set; }
         public virtual Clientes Clientes { get; set; }
     }
-}
 
 
 
-    public class VentaViewModel
+#region ViewModels
+public class VentaViewModel
     {
         #region Cabecera
         public int Cliente { get; set; }
@@ -120,5 +120,6 @@ namespace ClinicaDeCelulares.Models
             return Ventas;
         }
     }
+    #endregion
 
-
+}

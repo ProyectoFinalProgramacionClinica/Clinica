@@ -6,9 +6,9 @@
 
 <h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h2 class="page-header">
+    <a class="btn btn-primary pull-right" asp-action="Registrar">Nueva venta</a>
+</h2>
 <table class="table">
     <thead>
         <tr>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Vendedor.IdVendedor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Clientes.IdCliente)
+                @Html.DisplayFor(modelItem => item.Clientes.NombreCliente)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdVenta">Edit</a> |

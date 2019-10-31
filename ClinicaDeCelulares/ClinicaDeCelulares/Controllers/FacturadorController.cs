@@ -20,7 +20,7 @@ namespace AppFacturador.Controllers
         }
         public IActionResult Index()
         {
-            return View(ListarComprobantes());
+            return View(ListarVentas());
         }
 
         public JsonResult BuscarProducto(string nombre)
@@ -43,7 +43,7 @@ namespace AppFacturador.Controllers
         {
             if (action == "generar")
             {
-                if (model.Cliente != 0)
+                if (!string.IsNullOrEmpty(model.Cliente.ToString()))
                 {
                     if (RegistrarVenta(model.ToModel()))
                     {
@@ -113,7 +113,7 @@ namespace AppFacturador.Controllers
             return true;
         }
 
-        public List<Ventas> ListarComprobantes()
+        public List<Ventas> ListarVentas()
         {
             return context.Ventas.OrderByDescending(x => x.Fecha)
                                       .ToList();

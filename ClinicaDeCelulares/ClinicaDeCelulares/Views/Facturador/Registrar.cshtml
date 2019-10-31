@@ -19,7 +19,7 @@
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-xs-2">
-                        @Html.TextBoxFor(x => x.CabeceraIdProducto, new { @class = "form-control", placeholder = "Producto Id", id = "ProductoId" })
+                        @Html.TextBoxFor(x => x.CabeceraIdProducto, new { @class = "form-control", placeholder = "Producto Id", id = "IdProducto" })
                     </div>
                     <div class="col-xs-7">
                         @Html.HiddenFor(x => x.CabeceraIdProducto)
@@ -71,11 +71,11 @@
                     var i = Model.Factura.IndexOf(d);
                     <li class="list-group-item">
                         <!-- Modelo -->
-                        @Html.Hidden("ComprobanteDetalle[" + i + "].ProductoId", d.IdProducto)
-                        @Html.Hidden("ComprobanteDetalle[" + i + "].ProductoNombre", d.NombreProducto)
-                        @Html.Hidden("ComprobanteDetalle[" + i + "].PrecioUnitario", d.PrecioUnitario)
-                        @Html.Hidden("ComprobanteDetalle[" + i + "].Cantidad", d.Cantidad)
-                        @Html.Hidden("ComprobanteDetalle[" + i + "].Retirar", d.Retirar, new { @class = "retirar" })
+                        @Html.Hidden("Factura[" + i + "].IdProducto", d.IdProducto)
+                        @Html.Hidden("Factura[" + i + "].NombreProducto", d.NombreProducto)
+                        @Html.Hidden("Factura[" + i + "].PrecioUnitario", d.PrecioUnitario)
+                        @Html.Hidden("Factura[" + i + "].Cantidad", d.Cantidad)
+                        @Html.Hidden("Factura[" + i + "].Retirar", d.Retirar, new { @class = "retirar" })
 
                         <div class="row">
                             <div class="col-xs-1 text-right">
@@ -108,7 +108,7 @@
 
             @if (Model.Factura.Count > 0)
             {
-                <button class="btn btn-primary btn-block btn-lg" type="submit" value="generar" name="action">Generar comprobante</button>
+                <button class="btn btn-primary btn-block btn-lg" type="submit" value="generar" name="action">Generar venta</button>
             }
 
             @*@if (Model.ComprobanteDetalle.Count > 0)
@@ -135,7 +135,7 @@
                 return false;
             });
         })
-        $("#ProductoId").focusout(function () {
+        $("#IdProducto").focusout(function () {
             //$.ajax({
             //    url: '/Facturador/ProductosJSON',
             //    type: "post",
@@ -159,7 +159,7 @@
             //});
             $.ajax({
                 // En data puedes utilizar un objeto JSON, un array o un query string
-                data: { "id": $("#ProductoId").val() },
+                data: { "id": $("#IdProducto").val() },
                 //Cambiar a type: POST si necesario
                 type: "GET",
                 // Formato de datos que se espera en la respuesta

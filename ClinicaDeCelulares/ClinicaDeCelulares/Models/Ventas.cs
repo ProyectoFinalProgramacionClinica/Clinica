@@ -18,7 +18,7 @@ namespace ClinicaDeCelulares.Models
         [DataType(DataType.Date)]
         public  DateTime Fecha { get; set; }
         public int IdCliente { get; set; }
-        public int IdVendedor { get; set; }
+        //public int IdVendedor { get; set; }
         public decimal SubTotal { get; set; }
 
         public virtual List<Factura> Factura { get; set; }

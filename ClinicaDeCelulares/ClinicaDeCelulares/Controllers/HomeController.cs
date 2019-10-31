@@ -45,7 +45,7 @@ namespace ClinicaDeCelulares.Controllers
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-            String[] rolesName = { "Admin", "Vende", "Tecni" };
+            String[] rolesName = { "Admin", "Vende"};
             foreach (var item in rolesName)
             {
                 var roleExist = await roleManager.RoleExistsAsync(item);
@@ -54,8 +54,8 @@ namespace ClinicaDeCelulares.Controllers
                     await roleManager.CreateAsync(new IdentityRole(item));
                 }
             }
-            var user = await userManager.FindByIdAsync("0079c93b-46e7-4fd5-a3b0-d47ea2562d8a");
-            await userManager.AddToRoleAsync(user, "Admin");
+            var user = await userManager.FindByIdAsync("eba98458-972a-49d6-8527-98b9ae160c8e");
+            await userManager.AddToRoleAsync(user, "Vende");
         }
     }
 }

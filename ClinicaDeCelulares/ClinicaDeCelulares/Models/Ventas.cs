@@ -106,7 +106,7 @@ public class VentaViewModel
         public Ventas ToModel()
         {
             var Ventas = new Ventas();
-        //Ventas.IdCliente = this.;
+        Ventas.IdCliente = CabeceraIdCliente;
         Ventas.Fecha = DateTime.Now;
         Ventas.SubTotal = this.SubTotal();
 
@@ -115,7 +115,7 @@ public class VentaViewModel
                 Ventas.Factura.Add(new Factura
                 {
                     IdProducto = d.IdProducto,
-                    IdCliente = d.IdCliente,
+                   // IdCliente = d.IdCliente,
                     Total = d.Total(),
                     PrecioUnitario = d.PrecioUnitario,
                     Cantidad = d.Cantidad

@@ -4,14 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Registro de ventas</h2>
 
-<h2 class="page-header">
+<h2 class="paginate_button">
     <a class="btn btn-primary pull-right" asp-action="Registrar">Nueva venta</a>
 </h2>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Clientes)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
@@ -21,9 +24,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Vendedor)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Clientes)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -31,16 +31,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Clientes.NombreCliente)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Fecha)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SubTotal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Vendedor.IdVendedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Clientes.NombreCliente)
+                @Html.DisplayFor(modelItem => item.Vendedor.NombreVendedor)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdVenta">Edit</a> |

@@ -19,7 +19,7 @@ namespace ClinicaDeCelulares.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            await CreateRoles(_serviceProvider);
+            //await CreateRoles(_serviceProvider);
             return View();
         }
         public IActionResult About()
@@ -41,21 +41,21 @@ namespace ClinicaDeCelulares.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        private async Task CreateRoles(IServiceProvider serviceProvider)
-        {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-            String[] rolesName = { "Admin", "Vende"};
-            foreach (var item in rolesName)
-            {
-                var roleExist = await roleManager.RoleExistsAsync(item);
-                if (!roleExist)
-                {
-                    await roleManager.CreateAsync(new IdentityRole(item));
-                }
-            }
-            var user = await userManager.FindByIdAsync("eba98458-972a-49d6-8527-98b9ae160c8e");
-            await userManager.AddToRoleAsync(user, "Vende");
-        }
+        //private async Task CreateRoles(IServiceProvider serviceProvider)
+        //{
+        //    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //    var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        //    String[] rolesName = { "Admin", "Vende"};
+        //    foreach (var item in rolesName)
+        //    {
+        //        var roleExist = await roleManager.RoleExistsAsync(item);
+        //        if (!roleExist)
+        //        {
+        //            await roleManager.CreateAsync(new IdentityRole(item));
+        //        }
+        //    }
+        //    var user = await userManager.FindByIdAsync("eba98458-972a-49d6-8527-98b9ae160c8e");
+        //    await userManager.AddToRoleAsync(user, "Vende");
+        //}
     }
 }

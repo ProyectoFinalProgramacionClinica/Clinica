@@ -43,7 +43,7 @@ namespace AppFacturador.Controllers
         {
             if (action == "generar")
             {
-                if (!string.IsNullOrEmpty(model.Cliente.ToString()))
+                if (!string.IsNullOrEmpty(model.CabeceraIdCliente.ToString()))
                 {
                     if (RegistrarVenta(model.ToModel()))
                     {
@@ -91,6 +91,19 @@ namespace AppFacturador.Controllers
                             Id = p.IdProducto,
                             Nombre = p.nombreProducto,
                             Precio = p.precioUnidad
+                        };
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(query);
+        }
+        public string ClientesJSON(int id)
+        {
+            var query = from p in context.Clientes
+                        where p.IdCliente == id
+                        select new
+                        {
+                            Id = p.IdCliente,
+                            Nombre = p.NombreCliente
+                           
                         };
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(query);

@@ -9,8 +9,9 @@ namespace ClinicaDeCelulares.Models
     public class Factura
     {
         [Key]
-        public int IdFactura{ get; set; }
+        public int IdFactura { get; set; }
         public int IdVenta { get; set; }
+        public int IdCliente { get; set; }
         public int IdVendedor { get; set; }
         public int IdProducto { get; set; }
         [DataType(DataType.Date)]
@@ -28,6 +29,8 @@ namespace ClinicaDeCelulares.Models
     public partial class FacturaViewModel
     {
         public int IdProducto { get; set; }
+        public int IdCliente { get; set; }
+        public string NombreCliente { get; set; }
         public string NombreProducto { get; set; }
         [DataType(DataType.Date)]
         public string IFecha { get; set; }

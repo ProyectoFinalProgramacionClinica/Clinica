@@ -20,7 +20,8 @@ namespace ClinicaDeCelulares.Models
         public decimal Total { get; set; }
        
         public int Cantidad  { get; set; }
-       
+
+        public virtual Clientes Clientes { get; set; }
         public virtual Ventas Ventas { get; set; }
         public virtual Productos Productos { get; set; }
         public virtual Vendedor Vendedor  { get; set; }
@@ -33,7 +34,7 @@ namespace ClinicaDeCelulares.Models
         public string NombreCliente { get; set; }
         public string NombreProducto { get; set; }
         [DataType(DataType.Date)]
-        public string IFecha { get; set; }
+        public string Fecha { get; set; }
        
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }

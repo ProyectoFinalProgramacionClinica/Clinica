@@ -338,7 +338,7 @@ namespace ClinicaDeCelulares.Data.Migrations
 
             modelBuilder.Entity("ClinicaDeCelulares.Models.Factura", b =>
                 {
-                    b.HasOne("ClinicaDeCelulares.Models.Clientes")
+                    b.HasOne("ClinicaDeCelulares.Models.Clientes", "Clientes")
                         .WithMany("Factura")
                         .HasForeignKey("IdCliente")
                         .OnDelete(DeleteBehavior.Cascade);

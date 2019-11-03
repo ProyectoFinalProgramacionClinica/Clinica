@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicaDeCelulares.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191031085132_EliminarVentas")]
-    partial class EliminarVentas
+    [Migration("20191103051138_controladores")]
+    partial class controladores
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,9 +63,9 @@ namespace ClinicaDeCelulares.Data.Migrations
 
                     b.Property<int>("Cantidad");
 
-                    b.Property<int?>("ClientesIdCliente");
-
                     b.Property<string>("Fecha");
+
+                    b.Property<int>("IdCliente");
 
                     b.Property<int>("IdProducto");
 
@@ -81,7 +81,7 @@ namespace ClinicaDeCelulares.Data.Migrations
 
                     b.HasKey("IdFactura");
 
-                    b.HasIndex("ClientesIdCliente");
+                    b.HasIndex("IdCliente");
 
                     b.HasIndex("IdProducto");
 
@@ -290,9 +290,11 @@ namespace ClinicaDeCelulares.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -323,9 +325,11 @@ namespace ClinicaDeCelulares.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 
@@ -336,9 +340,10 @@ namespace ClinicaDeCelulares.Data.Migrations
 
             modelBuilder.Entity("ClinicaDeCelulares.Models.Factura", b =>
                 {
-                    b.HasOne("ClinicaDeCelulares.Models.Clientes")
+                    b.HasOne("ClinicaDeCelulares.Models.Clientes", "Clientes")
                         .WithMany("Factura")
-                        .HasForeignKey("ClientesIdCliente");
+                        .HasForeignKey("IdCliente")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ClinicaDeCelulares.Models.Productos", "Productos")
                         .WithMany("Factura")

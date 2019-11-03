@@ -8,34 +8,6 @@ namespace ClinicaDeCelulares.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "AspNetUserTokens",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldMaxLength: 128);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "LoginProvider",
-                table: "AspNetUserTokens",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldMaxLength: 128);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "ProviderKey",
-                table: "AspNetUserLogins",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldMaxLength: 128);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "LoginProvider",
-                table: "AspNetUserLogins",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldMaxLength: 128);
-
             migrationBuilder.CreateTable(
                 name: "Vendedor",
                 columns: table => new
@@ -58,8 +30,8 @@ namespace ClinicaDeCelulares.Data.Migrations
                     IdVenta = table.Column<string>(nullable: false),
                     Fecha = table.Column<DateTime>(nullable: false),
                     IdCliente = table.Column<int>(nullable: false),
-                    IdVendedor = table.Column<int>(nullable: false),
-                    SubTotal = table.Column<decimal>(nullable: false)
+                    SubTotal = table.Column<decimal>(nullable: false),
+                    VendedorIdVendedor = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,11 +43,11 @@ namespace ClinicaDeCelulares.Data.Migrations
                         principalColumn: "IdCliente",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ventas_Vendedor_IdVendedor",
-                        column: x => x.IdVendedor,
+                        name: "FK_Ventas_Vendedor_VendedorIdVendedor",
+                        column: x => x.VendedorIdVendedor,
                         principalTable: "Vendedor",
                         principalColumn: "IdVendedor",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,24 +57,24 @@ namespace ClinicaDeCelulares.Data.Migrations
                     IdFactura = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IdVenta = table.Column<int>(nullable: false),
+                    IdCliente = table.Column<int>(nullable: false),
                     IdVendedor = table.Column<int>(nullable: false),
                     IdProducto = table.Column<int>(nullable: false),
                     Fecha = table.Column<string>(nullable: true),
                     PrecioUnitario = table.Column<decimal>(nullable: false),
                     Total = table.Column<decimal>(nullable: false),
                     Cantidad = table.Column<int>(nullable: false),
-                    VentasIdVenta = table.Column<string>(nullable: true),
-                    ClientesIdCliente = table.Column<int>(nullable: true)
+                    VentasIdVenta = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Factura", x => x.IdFactura);
                     table.ForeignKey(
-                        name: "FK_Factura_Clientes_ClientesIdCliente",
-                        column: x => x.ClientesIdCliente,
+                        name: "FK_Factura_Clientes_IdCliente",
+                        column: x => x.IdCliente,
                         principalTable: "Clientes",
                         principalColumn: "IdCliente",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Factura_Productos_IdProducto",
                         column: x => x.IdProducto,
@@ -124,9 +96,9 @@ namespace ClinicaDeCelulares.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Factura_ClientesIdCliente",
+                name: "IX_Factura_IdCliente",
                 table: "Factura",
-                column: "ClientesIdCliente");
+                column: "IdCliente");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Factura_IdProducto",
@@ -149,9 +121,9 @@ namespace ClinicaDeCelulares.Data.Migrations
                 column: "IdCliente");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ventas_IdVendedor",
+                name: "IX_Ventas_VendedorIdVendedor",
                 table: "Ventas",
-                column: "IdVendedor");
+                column: "VendedorIdVendedor");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -164,34 +136,6 @@ namespace ClinicaDeCelulares.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Vendedor");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "AspNetUserTokens",
-                maxLength: 128,
-                nullable: false,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "LoginProvider",
-                table: "AspNetUserTokens",
-                maxLength: 128,
-                nullable: false,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "ProviderKey",
-                table: "AspNetUserLogins",
-                maxLength: 128,
-                nullable: false,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "LoginProvider",
-                table: "AspNetUserLogins",
-                maxLength: 128,
-                nullable: false,
-                oldClrType: typeof(string));
         }
     }
 }

@@ -11,14 +11,14 @@ namespace ClinicaDeCelulares.Models
     {
         public Ventas()
         {
-           Factura = new List<Factura>();
+            Factura = new List<Factura>();
         }
         [Key]
-        public string IdVenta { get; set; }
+        public int IdVenta { get; set; }
         [DataType(DataType.Date)]
-        public  DateTime Fecha { get; set; }
+        public DateTime Fecha { get; set; }
         public int IdCliente { get; set; }
-        //public int IdVendedor { get; set; }
+        public int IdVendedor { get; set; }
         public decimal SubTotal { get; set; }
 
         public virtual List<Factura> Factura { get; set; }
@@ -28,8 +28,8 @@ namespace ClinicaDeCelulares.Models
 
 
 
-#region ViewModels
-public class VentaViewModel
+    #region ViewModels
+    public class VentaViewModel
     {
         #region Cabecera
         public int CabeceraIdCliente { get; set; }
@@ -38,6 +38,7 @@ public class VentaViewModel
         public string CabeceraNombreProducto { get; set; }
         public int CabeceraCantidadProducto { get; set; }
         public decimal CabeceraPrecioProducto { get; set; }
+        public string CabeceraIdVendedor { get; set; }
         #endregion
 
         #region Contenido
@@ -90,10 +91,10 @@ public class VentaViewModel
 
         public void AgregarItemADetalle()
         {
-        Factura.Add(new FacturaViewModel
-        {
+            Factura.Add(new FacturaViewModel
+            {
                 IdCliente = CabeceraIdCliente,
-                NombreCliente = CabeceraNombreCliente, 
+                NombreCliente = CabeceraNombreCliente,
                 IdProducto = CabeceraIdProducto,
                 NombreProducto = CabeceraNombreProducto,
                 PrecioUnitario = CabeceraPrecioProducto,
@@ -106,16 +107,17 @@ public class VentaViewModel
         public Ventas ToModel()
         {
             var Ventas = new Ventas();
-        Ventas.IdCliente = CabeceraIdCliente;
-        Ventas.Fecha = DateTime.Now;
-        Ventas.SubTotal = this.SubTotal();
-
+            Ventas.IdCliente = CabeceraIdCliente;
+            Ventas.Fecha = DateTime.Now;
+            Ventas.SubTotal = this.SubTotal();
+            Ventas.IdVendedor = 1;
+            
             foreach (var d in Factura)
             {
                 Ventas.Factura.Add(new Factura
                 {
                     IdProducto = d.IdProducto,
-                   // IdCliente = d.IdCliente,
+                    // IdCliente = d.IdCliente,
                     Total = d.Total(),
                     PrecioUnitario = d.PrecioUnitario,
                     Cantidad = d.Cantidad

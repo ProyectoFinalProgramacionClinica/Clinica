@@ -47,7 +47,7 @@ namespace AppFacturador.Controllers
                 {
                     if (RegistrarVenta(model.ToModel()))
                     {
-                        return Redirect("~/");
+                        return Redirect("Index");
                     }
                 }
                 else
@@ -116,9 +116,11 @@ namespace AppFacturador.Controllers
             try
             {
                 context.Entry(ventas).State = EntityState.Added;
+                context.AddRange(ventas.Factura);
+                // context.Factura.AddRange(ventas.Factura);
                 context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }

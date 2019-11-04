@@ -4,16 +4,14 @@ using ClinicaDeCelulares.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ClinicaDeCelulares.Data.Migrations
+namespace ClinicaDeCelulares.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191019044344_cambio_atributos")]
-    partial class cambio_atributos
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,6 +51,39 @@ namespace ClinicaDeCelulares.Data.Migrations
                     b.HasKey("IdCliente");
 
                     b.ToTable("Clientes");
+                });
+
+            modelBuilder.Entity("ClinicaDeCelulares.Models.Factura", b =>
+                {
+                    b.Property<int>("IdFactura")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Cantidad");
+
+                    b.Property<int?>("ClientesIdCliente");
+
+                    b.Property<int>("IdProducto");
+
+                    b.Property<int>("IdVenta");
+
+                    b.Property<decimal>("PrecioUnitario");
+
+                    b.Property<decimal>("Total");
+
+                    b.Property<int?>("VendedorIdVendedor");
+
+                    b.HasKey("IdFactura");
+
+                    b.HasIndex("ClientesIdCliente");
+
+                    b.HasIndex("IdProducto");
+
+                    b.HasIndex("IdVenta");
+
+                    b.HasIndex("VendedorIdVendedor");
+
+                    b.ToTable("Factura");
                 });
 
             modelBuilder.Entity("ClinicaDeCelulares.Models.Productos", b =>
@@ -95,6 +126,46 @@ namespace ClinicaDeCelulares.Data.Migrations
                     b.HasKey("idProveedor");
 
                     b.ToTable("Proveedores");
+                });
+
+            modelBuilder.Entity("ClinicaDeCelulares.Models.Vendedor", b =>
+                {
+                    b.Property<int>("IdVendedor")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Cedula");
+
+                    b.Property<string>("NombreVendedor");
+
+                    b.Property<string>("Telefono");
+
+                    b.HasKey("IdVendedor");
+
+                    b.ToTable("Vendedor");
+                });
+
+            modelBuilder.Entity("ClinicaDeCelulares.Models.Ventas", b =>
+                {
+                    b.Property<int>("IdVenta")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Fecha");
+
+                    b.Property<int>("IdCliente");
+
+                    b.Property<int>("IdVendedor");
+
+                    b.Property<decimal>("SubTotal");
+
+                    b.HasKey("IdVenta");
+
+                    b.HasIndex("IdCliente");
+
+                    b.HasIndex("IdVendedor");
+
+                    b.ToTable("Ventas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -262,6 +333,27 @@ namespace ClinicaDeCelulares.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ClinicaDeCelulares.Models.Factura", b =>
+                {
+                    b.HasOne("ClinicaDeCelulares.Models.Clientes")
+                        .WithMany("Factura")
+                        .HasForeignKey("ClientesIdCliente");
+
+                    b.HasOne("ClinicaDeCelulares.Models.Productos", "Productos")
+                        .WithMany("Factura")
+                        .HasForeignKey("IdProducto")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ClinicaDeCelulares.Models.Ventas", "Ventas")
+                        .WithMany("Factura")
+                        .HasForeignKey("IdVenta")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ClinicaDeCelulares.Models.Vendedor")
+                        .WithMany("Factura")
+                        .HasForeignKey("VendedorIdVendedor");
+                });
+
             modelBuilder.Entity("ClinicaDeCelulares.Models.Productos", b =>
                 {
                     b.HasOne("ClinicaDeCelulares.Models.Categorias", "Categorias")
@@ -270,8 +362,21 @@ namespace ClinicaDeCelulares.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ClinicaDeCelulares.Models.Proveedores", "Proveedores")
-                        .WithMany()
+                        .WithMany("Productos")
                         .HasForeignKey("idProveedor")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ClinicaDeCelulares.Models.Ventas", b =>
+                {
+                    b.HasOne("ClinicaDeCelulares.Models.Clientes", "Clientes")
+                        .WithMany()
+                        .HasForeignKey("IdCliente")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ClinicaDeCelulares.Models.Vendedor", "Vendedor")
+                        .WithMany()
+                        .HasForeignKey("IdVendedor")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

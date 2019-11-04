@@ -6,21 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\20191029235618_controladores.cs" />
-    <Compile Remove="Data\Migrations\20191029235618_controladores.Designer.cs" />
-    <Compile Remove="Data\Migrations\20191031085132_EliminarVentas.cs" />
-    <Compile Remove="Data\Migrations\20191031085132_EliminarVentas.Designer.cs" />
-    <Compile Remove="Data\Migrations\20191101060454_clientesfactura.cs" />
-    <Compile Remove="Data\Migrations\20191101060454_clientesfactura.Designer.cs" />
-    <Compile Remove="Data\Migrations\20191101073131_clientefactura.cs" />
-    <Compile Remove="Data\Migrations\20191101073131_clientefactura.Designer.cs" />
-    <Compile Remove="Data\Migrations\20191103045856_IdCliente.cs" />
-    <Compile Remove="Data\Migrations\20191103045856_IdCliente.Designer.cs" />
-    <Compile Remove="Data\Migrations\20191103050607_controladores.cs" />
-    <Compile Remove="Data\Migrations\20191103050607_controladores.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />

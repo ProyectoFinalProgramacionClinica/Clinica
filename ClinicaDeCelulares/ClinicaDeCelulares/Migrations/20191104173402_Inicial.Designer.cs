@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ClinicaDeCelulares.Data.Migrations
+namespace ClinicaDeCelulares.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191103051138_controladores")]
-    partial class controladores
+    [Migration("20191104173402_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,13 +63,9 @@ namespace ClinicaDeCelulares.Data.Migrations
 
                     b.Property<int>("Cantidad");
 
-                    b.Property<string>("Fecha");
-
-                    b.Property<int>("IdCliente");
+                    b.Property<int?>("ClientesIdCliente");
 
                     b.Property<int>("IdProducto");
-
-                    b.Property<int>("IdVendedor");
 
                     b.Property<int>("IdVenta");
 
@@ -77,17 +73,17 @@ namespace ClinicaDeCelulares.Data.Migrations
 
                     b.Property<decimal>("Total");
 
-                    b.Property<string>("VentasIdVenta");
+                    b.Property<int?>("VendedorIdVendedor");
 
                     b.HasKey("IdFactura");
 
-                    b.HasIndex("IdCliente");
+                    b.HasIndex("ClientesIdCliente");
 
                     b.HasIndex("IdProducto");
 
-                    b.HasIndex("IdVendedor");
+                    b.HasIndex("IdVenta");
 
-                    b.HasIndex("VentasIdVenta");
+                    b.HasIndex("VendedorIdVendedor");
 
                     b.ToTable("Factura");
                 });
@@ -153,22 +149,23 @@ namespace ClinicaDeCelulares.Data.Migrations
 
             modelBuilder.Entity("ClinicaDeCelulares.Models.Ventas", b =>
                 {
-                    b.Property<string>("IdVenta")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("IdVenta")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Fecha");
 
                     b.Property<int>("IdCliente");
 
-                    b.Property<decimal>("SubTotal");
+                    b.Property<int>("IdVendedor");
 
-                    b.Property<int?>("VendedorIdVendedor");
+                    b.Property<decimal>("SubTotal");
 
                     b.HasKey("IdVenta");
 
                     b.HasIndex("IdCliente");
 
-                    b.HasIndex("VendedorIdVendedor");
+                    b.HasIndex("IdVendedor");
 
                     b.ToTable("Ventas");
                 });
@@ -340,24 +337,23 @@ namespace ClinicaDeCelulares.Data.Migrations
 
             modelBuilder.Entity("ClinicaDeCelulares.Models.Factura", b =>
                 {
-                    b.HasOne("ClinicaDeCelulares.Models.Clientes", "Clientes")
+                    b.HasOne("ClinicaDeCelulares.Models.Clientes")
                         .WithMany("Factura")
-                        .HasForeignKey("IdCliente")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ClientesIdCliente");
 
                     b.HasOne("ClinicaDeCelulares.Models.Productos", "Productos")
                         .WithMany("Factura")
                         .HasForeignKey("IdProducto")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ClinicaDeCelulares.Models.Vendedor", "Vendedor")
-                        .WithMany()
-                        .HasForeignKey("IdVendedor")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("ClinicaDeCelulares.Models.Ventas", "Ventas")
                         .WithMany("Factura")
-                        .HasForeignKey("VentasIdVenta");
+                        .HasForeignKey("IdVenta")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ClinicaDeCelulares.Models.Vendedor")
+                        .WithMany("Factura")
+                        .HasForeignKey("VendedorIdVendedor");
                 });
 
             modelBuilder.Entity("ClinicaDeCelulares.Models.Productos", b =>
@@ -368,7 +364,7 @@ namespace ClinicaDeCelulares.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ClinicaDeCelulares.Models.Proveedores", "Proveedores")
-                        .WithMany()
+                        .WithMany("Productos")
                         .HasForeignKey("idProveedor")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -382,7 +378,8 @@ namespace ClinicaDeCelulares.Data.Migrations
 
                     b.HasOne("ClinicaDeCelulares.Models.Vendedor", "Vendedor")
                         .WithMany()
-                        .HasForeignKey("VendedorIdVendedor");
+                        .HasForeignKey("IdVendedor")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

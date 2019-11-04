@@ -14,11 +14,12 @@ namespace ClinicaDeCelulares.Data
         {
         }
         public DbSet<ClinicaDeCelulares.Models.Clientes> Clientes { get; set; }
-        public DbSet<ClinicaDeCelulares.Models.Categorias> Categorias { get; set; }
-        public DbSet<ClinicaDeCelulares.Models.Productos> Productos { get; set; }
-        public DbSet<ClinicaDeCelulares.Models.Proveedores> Proveedores { get; set; }
         public DbSet<ClinicaDeCelulares.Models.Vendedor> Vendedor { get; set; }
-        public DbSet<ClinicaDeCelulares.Models.Factura> Factura { get; set; }
+        public DbSet<ClinicaDeCelulares.Models.Categorias> Categorias { get; set; }
+        public DbSet<ClinicaDeCelulares.Models.Proveedores> Proveedores { get; set; }
+        public DbSet<ClinicaDeCelulares.Models.Productos> Productos { get; set; }
         public DbSet<ClinicaDeCelulares.Models.Ventas> Ventas { get; set; }
+        public DbSet<ClinicaDeCelulares.Models.Factura> Factura { get; set; }
+       
     }
 }

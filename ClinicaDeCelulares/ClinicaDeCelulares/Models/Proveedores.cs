@@ -13,5 +13,11 @@ namespace ClinicaDeCelulares.Models
         public string compania { get; set; }
         public string nombreRepresentante { get; set; }
         public string telefonoProveedor { get; set; }
+        public virtual List<Productos> Productos { get; set; }
+
+        public Proveedores()
+        {
+            Productos = new List<Productos>();
+        }
     }
 }

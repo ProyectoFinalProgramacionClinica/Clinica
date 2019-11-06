@@ -1,0 +1,58 @@
+﻿@model ClinicaDeCelulares.Models.Ventas
+@{
+    ViewBag.Title = "Comprobante #" + Model.IdVenta;
+}
+
+<h2 class="page-header">Factura #@Model.IdVenta.ToString().PadLeft(4)</h2>
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <ul id="facturador-detalle" class="list-group">
+            <li class="list-group-item">
+                <h3>@Model.Clientes</h3>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <b>Producto</b>
+                    </div>
+                    <div class="col-xs-2 text-center">
+                        <b>Cantidad</b>
+                    </div>
+                    <div class="col-xs-2 text-right">
+                        <b>Precio Unitario</b>
+                    </div>
+                    <div class="col-xs-2 text-right">
+                        <b>Monto</b>
+                    </div>
+                </div>
+            </li>
+            @foreach (var d in Model.Factura)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            @d.Productos.nombreProducto
+                        </div>
+                        <div class="col-xs-2 text-center">
+                            @d.Cantidad
+                        </div>
+                        <div class="col-xs-2 text-right">
+                            @string.Format("{0:c}", d.PrecioUnitario)
+                        </div>
+                        <div class="col-xs-2 text-right">
+                            @string.Format("{0:c}", d.Total)
+                        </div>
+                    </div>
+                </li>
+            }
+            @if (Model.Factura.Count > 0)
+            {
+                <li class="list-group-item text-right" style="font-size:18px;">
+                    @string.Format("{0:c}", Model.SubTotal)
+                </li>
+            }
+        </ul>
+    </div>
+</div>

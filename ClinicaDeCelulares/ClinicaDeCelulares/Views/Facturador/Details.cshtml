@@ -1,4 +1,4 @@
-﻿@model ClinicaDeCelulares.Models.Ventas
+﻿@model ClinicaDeCelulares.Models.Factura
 
 @{
     ViewData["Title"] = "Details";
@@ -11,28 +11,29 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Fecha)
+            @Html.DisplayNameFor(model => model.IdFactura)
+        </dt>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdVenta)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Fecha)
+            @Html.DisplayFor(model => model.IdProducto)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SubTotal)
+            @Html.DisplayNameFor(model => model.PrecioUnitario)
         </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SubTotal)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Vendedor)
-        </dt>
-        <dd>
+        @*<dd>
             @Html.DisplayFor(model => model.Vendedor.IdVendedor)
-        </dd>
+        </dd>*@
         <dt>
-            @Html.DisplayNameFor(model => model.Clientes)
+            @Html.DisplayNameFor(model => model.Total)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Clientes.IdCliente)
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Productos)
         </dd>
     </dl>
 </div>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using ClinicaDeCelulares.Data;
 using ClinicaDeCelulares.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,22 @@ namespace AppFacturador.Controllers
         {
             return View(ListarVentas());
         }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var factura = await context.Factura
+                .FirstOrDefaultAsync(m => m.IdVenta == id);
+            if (factura == null)
+            {
+                return NotFound();
+            }
+
+            return View(factura);
+        }
         public JsonResult BuscarProducto(string nombre)
         {
             return Json(ListarNombresProductos(nombre));
@@ -41,6 +57,7 @@ namespace AppFacturador.Controllers
         [HttpPost]
         public ActionResult Registrar(VentaViewModel model, string action)
         {
+
             if (action == "generar")
             {
                 if (!string.IsNullOrEmpty(model.CabeceraIdCliente.ToString()))

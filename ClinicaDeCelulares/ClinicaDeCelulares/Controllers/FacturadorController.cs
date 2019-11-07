@@ -23,19 +23,20 @@ namespace AppFacturador.Controllers
         {
             return View(ListarVentas());
         }
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Detalle(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var factura = await context.Factura
+            var factura = await context.Ventas
                 .FirstOrDefaultAsync(m => m.IdVenta == id);
             if (factura == null)
             {
                 return NotFound();
             }
+            ViewData["Factura"] = context.Factura;
 
             return View(factura);
         }

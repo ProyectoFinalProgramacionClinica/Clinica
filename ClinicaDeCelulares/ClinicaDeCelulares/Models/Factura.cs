@@ -8,6 +8,7 @@ namespace ClinicaDeCelulares.Models
 {
     public partial class Factura
     {
+      
         [Key]
         public int IdFactura { get; set; }
 
@@ -42,5 +43,6 @@ namespace ClinicaDeCelulares.Models
             return Cantidad * PrecioUnitario;
         }
     }
+    
     #endregion
 }

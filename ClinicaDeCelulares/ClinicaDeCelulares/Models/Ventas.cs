@@ -25,10 +25,15 @@ namespace ClinicaDeCelulares.Models
         public virtual Vendedor Vendedor { get; set; }
         public virtual Clientes Clientes { get; set; }
     }
-
+  
 
 
     #region ViewModels
+
+    public class DetalleventaViewModel
+    {
+
+    }
     public class VentaViewModel
     {
         #region Cabecera

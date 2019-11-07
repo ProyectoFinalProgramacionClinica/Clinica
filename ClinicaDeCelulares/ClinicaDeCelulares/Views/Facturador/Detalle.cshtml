@@ -1,7 +1,8 @@
 ﻿@model ClinicaDeCelulares.Models.Ventas
 @{
-     ViewData["Title"] = "Detalle";
-    ViewBag.Title = "Comprobante #" + Model.IdVenta;
+    ViewData["Factura"] = "Detalle";
+
+    ViewBag.Title = "Factura #" + Model.IdVenta;
 }
 
 <h2 class="page-header">Comprobante #@Model.IdVenta.ToString().PadLeft(4)</h2>
@@ -11,7 +12,8 @@
 
         <ul id="facturador-detalle" class="list-group">
             <li class="list-group-item">
-                <h3>@Model.Factura</h3>
+                <h3>FACTURA</h3>
+
             </li>
             <li class="list-group-item">
                 <div class="row">
@@ -34,7 +36,8 @@
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-xs-6">
-                            @d.Productos.nombreProducto
+
+                            @Html.DisplayName(d.Productos.nombreProducto.ToString())
                         </div>
                         <div class="col-xs-2 text-center">
                             @d.Cantidad

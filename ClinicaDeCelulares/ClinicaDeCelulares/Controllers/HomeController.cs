@@ -13,11 +13,13 @@ namespace ClinicaDeCelulares.Controllers
 {
     public class HomeController : Controller
     {
-        IServiceProvider _serviceProvider;
+    
+    IServiceProvider _serviceProvider;
         public HomeController(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
+
         [Authorize]
         public async Task<IActionResult> Index()
         {

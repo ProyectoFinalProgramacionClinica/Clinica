@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ClinicaDeCelulares.Data;
 using ClinicaDeCelulares.Models;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicaDeCelulares.Controllers
 {
@@ -21,6 +22,7 @@ namespace ClinicaDeCelulares.Controllers
         }
 
         // GET: Clientes
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Clientes.ToListAsync());

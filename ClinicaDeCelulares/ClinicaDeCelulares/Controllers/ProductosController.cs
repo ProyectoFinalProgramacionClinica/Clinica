@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ClinicaDeCelulares.Data;
 using ClinicaDeCelulares.Models;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicaDeCelulares.Controllers
 {
@@ -21,6 +22,7 @@ namespace ClinicaDeCelulares.Controllers
         }
 
         // GET: Productos
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Productos.Include(p => p.Categorias).Include(p => p.Proveedores);

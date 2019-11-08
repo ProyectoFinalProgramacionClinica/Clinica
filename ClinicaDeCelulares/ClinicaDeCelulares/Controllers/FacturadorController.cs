@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ClinicaDeCelulares.Data;
 using ClinicaDeCelulares.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace AppFacturador.Controllers
         {
             this.context = context;
         }
+        [Authorize]
         public IActionResult Index()
         {
             return View(ListarVentas());
@@ -138,7 +140,7 @@ namespace AppFacturador.Controllers
                 // context.Factura.AddRange(ventas.Factura);
                 context.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

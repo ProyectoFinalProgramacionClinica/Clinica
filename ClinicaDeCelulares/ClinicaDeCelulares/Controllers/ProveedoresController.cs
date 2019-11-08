@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClinicaDeCelulares.Data;
 using ClinicaDeCelulares.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicaDeCelulares.Controllers
 {
@@ -20,6 +21,7 @@ namespace ClinicaDeCelulares.Controllers
         }
 
         // GET: Proveedores
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Proveedores.ToListAsync());

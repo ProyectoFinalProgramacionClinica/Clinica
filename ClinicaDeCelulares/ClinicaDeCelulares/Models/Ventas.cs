@@ -29,11 +29,6 @@ namespace ClinicaDeCelulares.Models
 
 
     #region ViewModels
-
-    public class DetalleventaViewModel
-    {
-
-    }
     public class VentaViewModel
     {
         #region Cabecera

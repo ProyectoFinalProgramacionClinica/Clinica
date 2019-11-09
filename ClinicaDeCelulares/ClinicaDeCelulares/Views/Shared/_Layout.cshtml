@@ -17,13 +17,13 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
 </head>
-<body>
+<body style="background-image: url('/images/Fondo.jpg');">
+
     <nav class="nav-wrapper cyan darken-2">
         <a href="#!" class="brand-logo center">
             Clinica de celulares
-            <partial name="_LoginPartial" />
         </a>
     </nav>
 
@@ -41,7 +41,6 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/materialize/js/materialize.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -59,12 +58,10 @@
 
 
     </environment>
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
-   
     <script src="~/js/jquery.dataTables.min.js" asp-append-version="true"></script>
-    <script src="~/js/jquery.jeditable.mini.js" asp-append-version="true"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.dataTables.min.js" asp-append-version="true"></script>
     <script src="~/js/sweetalert2.min.js" asp-append-version="true"></script>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

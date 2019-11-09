@@ -20,7 +20,7 @@ namespace AppFacturador.Controllers
         {
             this.context = context;
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public IActionResult Index()
         {
             return View(ListarVentas());
